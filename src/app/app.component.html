@@ -1,0 +1,45 @@
+
+  <hello name="{{ name }}"></hello>
+  <div *ngIf="getCurrentPrice()">
+  <hr/>
+  <div>
+    <input type="button" value="Atualizar" (click)="update()"/>
+    <span>Atualizado em {{this.bitcoinService.lastUpdate | date:"full"}}
+        <br><span>Atualizar em: {{timer.getCount()}}s</span>
+    </span>
+  </div>
+  <hr/>
+  <h2>Data/hora</h2>
+  <div>{{this.getCurrentPrice().time.updated}}</div>
+  <h2>Taxas</h2>
+  <h3>{{this.getCurrentPrice().bpi.USD.description}}</h3>
+  <h4>
+    <span [innerHTML]="this.getCurrentPrice().bpi.USD.symbol"></span>
+    {{this.getCurrentPrice().bpi.USD.rate}}
+  </h4>
+  <h3>{{this.getCurrentPrice().bpi.GBP.description}}</h3>
+  <h4>
+    <span [innerHTML]="this.getCurrentPrice().bpi.GBP.symbol"></span>
+    {{this.getCurrentPrice().bpi.GBP.rate}}
+  </h4>
+  <h3>{{this.getCurrentPrice().bpi.EUR.description}}</h3>
+  <h4>
+    <span [innerHTML]="this.getCurrentPrice().bpi.EUR.symbol"></span>
+    {{this.getCurrentPrice().bpi.EUR.rate}}
+  </h4>
+  <hr/>
+  <table border="1">
+    <tr>
+      <th>Data/hora</th>
+      <th>USD</th>
+      <th>GBP</th>
+      <th>EUR</th>
+    </tr>
+    <tr *ngFor="let price of this.bitcoinService.updateList">
+      <td>{{price.timestamp | date:"full"}}</td>
+      <td>{{price.USD | currency}}</td>
+      <td>{{price.GBP | currency}}</td>
+      <td>{{price.EUR | currency}}</td>
+    </tr>
+  </table>
+</div>
